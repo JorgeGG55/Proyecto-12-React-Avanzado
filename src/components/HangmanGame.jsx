@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 
 const words = [
   'car',
@@ -29,7 +29,7 @@ const hangmanReducer = (state, action) => {
       };
     case 'HANDLE_LETTER_CLICK':
       const { letter } = action;
-      if (state.usedLetters.includes(letter)) {
+      if (state.usedLetters.includes(letter) || state.gameResult) {
         return state;
       }
 
@@ -75,20 +75,28 @@ const HangmanGame = () => {
     gameResult: ''
   });
 
+  const [gameOver, setGameOver] = useState(false);
+
   const { gameStarted, selectedWord, displayedWord, usedLetters, remainingAttempts, gameResult } =
     state;
 
   const handleLetterClick = (letter) => {
-    dispatch({ type: 'HANDLE_LETTER_CLICK', letter });
+    if (!gameOver) {
+      dispatch({ type: 'HANDLE_LETTER_CLICK', letter });
+    }
   };
 
   const handleGameRestart = () => {
+    setGameOver(false);
     dispatch({ type: 'HANDLE_GAME_RESTART' });
   };
 
   useEffect(() => {
     if (gameStarted) {
-      dispatch({ type: 'UPDATE_GAME_RESULT' });
+      const result = dispatch({ type: 'UPDATE_GAME_RESULT' });
+      if (result && result.gameResult) {
+        setGameOver(true);
+      }
     }
   }, [displayedWord, remainingAttempts, selectedWord, gameStarted]);
 
@@ -130,7 +138,12 @@ const HangmanGame = () => {
       </div>
       <div className="letterContainer">
         {Array.from('abcdefghijklmnopqrstuvwxyz').map((letter) => (
-          <button className="letterButtons" key={letter} onClick={() => handleLetterClick(letter)}>
+          <button
+            className="letterButtons"
+            key={letter}
+            onClick={() => handleLetterClick(letter)}
+            disabled={gameOver || usedLetters.includes(letter)}
+          >
             {letter}
           </button>
         ))}
