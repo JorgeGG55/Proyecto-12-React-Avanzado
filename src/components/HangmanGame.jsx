@@ -108,46 +108,50 @@ const HangmanGame = () => {
           New Game
         </button>
       </div>
-      <div>
-        <p>
-          Word:{' '}
-          {displayedWord
-            .split('')
-            .map((char, index) => (char === '_' ? '_ ' : char + ' '))
-            .join('')}
-        </p>
-      </div>
-      <div>
-        <p>
-          Incorrect Letters:{' '}
-          {usedLetters
-            .filter((letter) => !selectedWord.includes(letter))
-            .map((letter, index, array) => (
-              <span key={index} className="incorrectLetters">
+      {gameStarted && (
+        <>
+          <div>
+            <p>
+              Word:{' '}
+              {displayedWord
+                .split('')
+                .map((char, index) => (char === '_' ? '_ ' : char + ' '))
+                .join('')}
+            </p>
+          </div>
+          <div>
+            <p>
+              Incorrect Letters:{' '}
+              {usedLetters
+                .filter((letter) => !selectedWord.includes(letter))
+                .map((letter, index, array) => (
+                  <span key={index} className="incorrectLetters">
+                    {letter}
+                    {index !== array.length - 1 && ' - '}
+                  </span>
+                ))}
+            </p>
+            <p>Remaining attempts: {remainingAttempts}</p>
+          </div>
+          <div>
+            <p className={gameResult.includes('won') ? 'resultGameGreen' : 'resultGameRed'}>
+              {gameResult}
+            </p>
+          </div>
+          <div className="letterContainer">
+            {Array.from('abcdefghijklmnopqrstuvwxyz').map((letter) => (
+              <button
+                className="letterButtons"
+                key={letter}
+                onClick={() => handleLetterClick(letter)}
+                disabled={gameOver || usedLetters.includes(letter)}
+              >
                 {letter}
-                {index !== array.length - 1 && ' - '}
-              </span>
+              </button>
             ))}
-        </p>
-        <p>Remaining attempts: {remainingAttempts}</p>
-      </div>
-      <div>
-        <p className={gameResult.includes('won') ? 'resultGameGreen' : 'resultGameRed'}>
-          {gameResult}
-        </p>
-      </div>
-      <div className="letterContainer">
-        {Array.from('abcdefghijklmnopqrstuvwxyz').map((letter) => (
-          <button
-            className="letterButtons"
-            key={letter}
-            onClick={() => handleLetterClick(letter)}
-            disabled={gameOver || usedLetters.includes(letter)}
-          >
-            {letter}
-          </button>
-        ))}
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
