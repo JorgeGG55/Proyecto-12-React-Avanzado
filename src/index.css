@@ -15,66 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.NavLink {
-  font-weight: 500;
-  color: white;
-  text-decoration: inherit;
-  height: 100px;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  border-radius: 10px;
-  align-items: center;
-  transition: 0.2s;
-}
-
-.NavLink:hover {
-  transform: scale(1.1);
-}
-
-.tictactoe {
-  background-image: url('https://s3-alpha.figma.com/hub/file/479379372/7e6df39f-585d-4a9e-9bf3-4ef4c00f816b-cover.png');
-  background-size: cover;
-  background-position: center;
-  object-fit: fill;
-  background-repeat: no-repeat;
-  transition: transform 0.2s;
-}
-
-.hangman {
-  background-image: url('https://t4.ftcdn.net/jpg/05/11/07/13/360_F_511071324_M9zRvlGjGSsYCbEGIYgWOvhZ5A9xzAU6.jpg');
-  background-size: cover;
-  background-position: center;
-  object-fit: fill;
-  background-repeat: no-repeat;
-  transition: transform 0.2s;
-}
-
-.sudoku {
-  background-image: url('https://cdn.dribbble.com/users/220497/screenshots/9446342/media/1f5802a4c70400d405d559a236a7e396.png?resize=400x300&vertical=center');
-  background-size: cover;
-  background-position: center;
-  object-fit: fill;
-  background-repeat: no-repeat;
-  transition: transform 0.2s;
-}
-
 body {
   margin: 0;
   min-width: 320px;
   min-height: 95vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 5% 0%;
 }
 
 .firstContainer {
@@ -88,17 +32,6 @@ nav {
 .row {
   display: flex;
   margin: 8% 0%;
-}
-
-.startGameButton {
-  border: 1px solid white;
-  border-radius: 8px;
-  padding: 1.2rem;
-  font-family: inherit;
-  font-size: 1.2rem;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  margin-bottom: 2%;
 }
 
 .resetButton {
@@ -270,13 +203,15 @@ nav {
 
 .surrender-message {
   position: absolute;
-  bottom: 150px;
+  font-weight: lighter;
+  color: white;
+  bottom: 140px;
   right: 810px;
 }
 
 .check-message {
   position: absolute;
-  bottom: 120px;
+  bottom: 110px;
   right: 860px;
 }
 
@@ -301,113 +236,9 @@ button {
   cursor: pointer;
 }
 
-.menu-icon {
-  cursor: pointer;
-  display: none;
-}
-
-.bar1,
-.bar2,
-.bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #333;
-  margin: 6px 0;
-  transition: 0.4s;
-}
-
-.open .bar1 {
-  transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.open .bar2 {
-  opacity: 0;
-}
-
-.open .bar3 {
-  transform: rotate(45deg) translate(-8px, -8px);
-}
-
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidenav.open {
-  width: 250px;
-}
-
-.sidenav nav {
-  padding: 15px;
-}
-
-.sidenav .NavLink {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-  color: #f1f1f1;
-}
-
-.sidenav .menu-icon {
-  margin-top: 3%;
-  cursor: pointer;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 2;
-}
-
-.bar1,
-.bar2,
-.bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #fff;
-  margin: 6px 0;
-  transition: 0.4s;
-}
-
-.open .bar1 {
-  transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.open .bar2 {
-  opacity: 0;
-}
-
-.open .bar3 {
-  transform: rotate(45deg) translate(-8px, -8px);
-}
-
-.desktopNav {
-  flex-direction: row;
-}
-
 @media (max-width: 768px) {
   body {
     min-height: 0;
-  }
-
-  header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    z-index: 1000;
-    transition: background-color 0.3s;
-    display: flex;
-    justify-content: center;
   }
 
   .firstContainer {
@@ -424,40 +255,6 @@ button {
 
   .tictacResetButton {
     margin: 0;
-  }
-
-  .desktopNav {
-    display: none;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  nav {
-    width: 100%;
-  }
-
-  .menu-icon {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .NavLink {
-    margin: 10px;
-  }
-
-  .sidenav.open {
-    width: 100%;
   }
 
   .letterContainer {

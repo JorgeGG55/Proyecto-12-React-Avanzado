@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import { useReducer, useEffect } from 'react';
 
 const words = [
   'car',
@@ -65,7 +65,7 @@ const hangmanReducer = (state, action) => {
   }
 };
 
-const HangmanGame = () => {
+export const useHangmanGame = () => {
   const [state, dispatch] = useReducer(hangmanReducer, {
     gameStarted: false,
     selectedWord: '',
@@ -75,19 +75,16 @@ const HangmanGame = () => {
     gameResult: ''
   });
 
-  const [gameOver, setGameOver] = useState(false);
-
   const { gameStarted, selectedWord, displayedWord, usedLetters, remainingAttempts, gameResult } =
     state;
 
   const handleLetterClick = (letter) => {
-    if (!gameOver) {
+    if (!gameResult) {
       dispatch({ type: 'HANDLE_LETTER_CLICK', letter });
     }
   };
 
   const handleGameRestart = () => {
-    setGameOver(false);
     dispatch({ type: 'HANDLE_GAME_RESTART' });
   };
 
@@ -95,65 +92,18 @@ const HangmanGame = () => {
     if (gameStarted) {
       const result = dispatch({ type: 'UPDATE_GAME_RESULT' });
       if (result && result.gameResult) {
-        setGameOver(true);
       }
     }
   }, [displayedWord, remainingAttempts, selectedWord, gameStarted]);
 
-  return (
-    <>
-      <h2>Hangman</h2>
-      <div>
-        <button className="startGameButton" onClick={handleGameRestart}>
-          New Game
-        </button>
-      </div>
-      {gameStarted && (
-        <>
-          <div>
-            <p>
-              Word:{' '}
-              {displayedWord
-                .split('')
-                .map((char, index) => (char === '_' ? '_ ' : char + ' '))
-                .join('')}
-            </p>
-          </div>
-          <div>
-            <p>
-              Incorrect Letters:{' '}
-              {usedLetters
-                .filter((letter) => !selectedWord.includes(letter))
-                .map((letter, index, array) => (
-                  <span key={index} className="incorrectLetters">
-                    {letter}
-                    {index !== array.length - 1 && ' - '}
-                  </span>
-                ))}
-            </p>
-            <p>Remaining attempts: {remainingAttempts}</p>
-          </div>
-          <div>
-            <p className={gameResult.includes('won') ? 'resultGameGreen' : 'resultGameRed'}>
-              {gameResult}
-            </p>
-          </div>
-          <div className="letterContainer">
-            {Array.from('abcdefghijklmnopqrstuvwxyz').map((letter) => (
-              <button
-                className="letterButtons"
-                key={letter}
-                onClick={() => handleLetterClick(letter)}
-                disabled={gameOver || usedLetters.includes(letter)}
-              >
-                {letter}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-    </>
-  );
+  return {
+    gameStarted,
+    displayedWord,
+    usedLetters,
+    selectedWord,
+    remainingAttempts,
+    gameResult,
+    handleLetterClick,
+    handleGameRestart
+  };
 };
-
-export default HangmanGame;

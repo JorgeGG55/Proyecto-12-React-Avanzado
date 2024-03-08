@@ -1,0 +1,71 @@
+.navLink {
+  font-weight: 500;
+  color: white;
+  text-decoration: inherit;
+  height: 100px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.tictactoe {
+  background-image: url('https://s3-alpha.figma.com/hub/file/479379372/7e6df39f-585d-4a9e-9bf3-4ef4c00f816b-cover.png');
+  background-size: cover;
+  background-position: center;
+  object-fit: fill;
+  background-repeat: no-repeat;
+  transition: transform 0.2s;
+}
+
+.hangman {
+  background-image: url('https://t4.ftcdn.net/jpg/05/11/07/13/360_F_511071324_M9zRvlGjGSsYCbEGIYgWOvhZ5A9xzAU6.jpg');
+  background-size: cover;
+  background-position: center;
+  object-fit: fill;
+  background-repeat: no-repeat;
+  transition: transform 0.2s;
+}
+
+.sudoku {
+  background-image: url('https://cdn.dribbble.com/users/220497/screenshots/9446342/media/1f5802a4c70400d405d559a236a7e396.png?resize=400x300&vertical=center');
+  background-size: cover;
+  background-position: center;
+  object-fit: fill;
+  background-repeat: no-repeat;
+  transition: transform 0.2s;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5% 0%;
+}
+
+.desktop {
+  display: flex;
+  flex-direction: row;
+}
+
+.mobile {
+  align-items: center;
+  margin: 0;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+
+  .navLink {
+    margin-bottom: 10%;
+  }
+
+  .mobile {
+    display: flex;
+  }
+}

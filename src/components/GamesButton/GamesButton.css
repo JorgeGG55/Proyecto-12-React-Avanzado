@@ -1,0 +1,10 @@
+.startGameButton {
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 1.2rem;
+  font-family: inherit;
+  font-size: 1.2rem;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  margin-bottom: 2%;
+}

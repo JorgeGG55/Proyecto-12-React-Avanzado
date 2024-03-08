@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header/Header';
 
 function App() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [gameSelected, setGameSelected] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -14,56 +16,29 @@ function App() {
     setGameSelected(true);
   };
 
+  const shouldShowText = !gameSelected || location.pathname === '/';
+
+  useEffect(() => {
+    const gameSelectedFromStorage = localStorage.getItem('gameSelected');
+    if (gameSelectedFromStorage) {
+      setGameSelected(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('gameSelected', gameSelected);
+  }, [gameSelected]);
+
   return (
     <>
-      <header>
-        <div className={`sidenav ${isMenuOpen ? 'open' : ''}`}>
-          <div className="menu-icon" onClick={toggleMenu}>
-            <div className="bar1"></div>
-            <div className="bar2"></div>
-            <div className="bar3"></div>
-          </div>
-          <nav>
-            <NavLink
-              className="NavLink tictactoe"
-              to="tictactoe"
-              onClick={() => {
-                toggleMenu();
-                handleGameSelection();
-              }}
-            ></NavLink>
-            <NavLink
-              className="NavLink hangman"
-              to="hangman"
-              onClick={() => {
-                toggleMenu();
-                handleGameSelection();
-              }}
-            ></NavLink>
-            <NavLink
-              className="NavLink sudoku"
-              to="sudoku"
-              onClick={() => {
-                toggleMenu();
-                handleGameSelection();
-              }}
-            ></NavLink>
-          </nav>
-        </div>
-        <h1>GamesHub</h1>
-      </header>
-      <nav className="desktopNav">
-        <NavLink
-          className="NavLink tictactoe"
-          to="tictactoe"
-          onClick={handleGameSelection}
-        ></NavLink>
-        <NavLink className="NavLink hangman" to="hangman" onClick={handleGameSelection}></NavLink>
-        <NavLink className="NavLink sudoku" to="sudoku" onClick={handleGameSelection}></NavLink>
-      </nav>
+      <Header
+        isMenuOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+        handleGameSelection={handleGameSelection}
+      />
       <main>
         <div className="firstContainer">
-          {!gameSelected && (
+          {shouldShowText && (
             <>
               <h2>Bienvenido a GamesHub</h2>
               <p>Seleccione un juego en el menú para comenzar</p>
